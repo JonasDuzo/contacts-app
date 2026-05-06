@@ -53,7 +53,7 @@ app.use((req, res) => {
 });
 
 // Erro
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   res.status(500).json({ error: err.message });
 });
 
