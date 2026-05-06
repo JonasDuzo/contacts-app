@@ -1,0 +1,52 @@
+{{#if error}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{error}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{{/if}}
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>Novo Contato</h3>
+        <form method="POST" action="/">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nome *</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email *</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Telefone</label>
+                <input type="tel" class="form-control" id="phone" name="phone">
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Mensagem</label>
+                <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Adicionar Contato</button>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <h3>Contatos ({{contacts.length}})</h3>
+        {{#if contacts}}
+        <div class="list-group">
+            {{#each contacts}}
+            <div class="list-group-item">
+                <h5 class="mb-1">{{this.name}}</h5>
+                <p class="mb-1"><strong>Email:</strong> {{this.email}}</p>
+                {{#if this.phone}}<p class="mb-1"><strong>Telefone:</strong> {{this.phone}}</p>{{/if}}
+                {{#if this.message}}<p class="mb-2"><small>{{this.message}}</small></p>{{/if}}
+                <form method="POST" action="/{{this._id}}/delete" style="display: inline;">
+                    <button type="submit" class="btn btn-sm btn-danger">Deletar</button>
+                </form>
+            </div>
+            {{/each}}
+        </div>
+        {{else}}
+        <div class="alert alert-info">Nenhum contato cadastrado ainda.</div>
+        {{/if}}
+    </div>
+</div>
